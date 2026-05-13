@@ -332,6 +332,7 @@
   </div>
 </div>
 
+<script src="train-number-rules.js"></script>
 <script>
 const API_URL = 'https://api-public.odpt.org/api/v4/odpt:Train?odpt:railway=odpt.Railway:Toei.Mita';
 const REFRESH_INTERVAL = 30;
@@ -661,10 +662,7 @@ function renderDiagram(trains) {
         const leftOff = idx * 100;
         const delayText = delay.cls !== 'delay-0' ? ` ${delay.text}` : '';
         const trainNum = t['odpt:trainNumber'] || '';
-        const is8car = (
-				/30T$|31T$|34T$|35T$|37T$|42T$|43T$|45T$|54T$|55T$|70T$|71T$|78T$|79T$|80T$|81T$|86T$|87T$|01K$|03K$|15K$|42K$|G$/.test(trainNum)
-				|| (/36T$|38T$|39T$|44T$|82T$|00K$|04K$|06K$|07K$|09K$|12K$|13K$|16K$|22K$|23K$|24K$|26K$|27K$|31K$|40K$|43K$/.test(trainNum) && !isWeekendOrHoliday)
-				|| (/40T$|41T$|46T$|52T$|53T$|62T$|63T$|64T$|08K$/.test(trainNum) && isWeekendOrHoliday));
+        const is8car = isEightCarTrain(trainNum, isWeekendOrHoliday);
         const carCls = is8car ? 'car-8' : 'car-6';
 
         return `<div
